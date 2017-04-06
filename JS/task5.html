@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE task2</title>
+    <style>
+
+
+        p button {
+            background-color:red;
+            padding:10px;
+            border:none;
+            margin:2px;
+            width: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class = "div1">
+    <input type = "text" id = "num1" >
+    <button id = "left_in" onclick = "leftIn()">左侧进</button>
+    <button id = "right_in" onclick = "rightIn()">右侧进</button>
+    <button id = "left_out" onclick="leftOut()">左侧出</button>
+    <button id = "right_out" onclick="rightOut()">右侧出</button>
+    <button id = "sort" onclick="sort1()">排序</button>
+</div>
+<p id = num_list><p>
+    <script type = "text/javascript">
+        function leftIn() {
+            var num1 = document.getElementById("num1");
+            var numList = document.getElementById("num_list");
+            var newLi = document.createElement("button");
+            if(isNaN(num1.value)||num1.value == ""){
+                alert("请输入数字");
+            }
+            else if(num1.value < 10||num1.value > 100){
+                alert("请输入10到100的数");
+            }
+            else if(numList.childNodes.length > 60){
+                alert("输入的数值已经超过60个了，请不要再输入了")
+            }
+            else {
+                newLi.style.height= num1.value+"px";
+                numList.insertBefore(newLi, numList.childNodes[0]);
+                newLi.onclick = function () {
+                    deleteNum(newLi);
+                }
+            }
+
+        }
+        function rightIn() {
+            var num1 = document.getElementById("num1");
+            var numList = document.getElementById("num_list");
+            var newLi = document.createElement("button");
+            if(isNaN(num1.value)||num1.value == ""){
+                alert("请输入数字");
+            }
+            else if(num1.value < 10||num1.value > 100){
+                alert("请输入10到100的数");
+            }
+            else if(numList.childNodes.length > 60){
+                alert("输入的数值已经超过60个了，请不要再输入了")
+            }
+            else {
+                newLi.style.height = num1.value+"px";
+                numList.appendChild(newLi);
+                newLi.onclick = function () {
+                    deleteNum(newLi);
+                }
+            }
+        }
+        function rightOut() {
+            var numList = document.getElementById("num_list");
+            if(!numList.childNodes.length) return false;
+            var a = numList.lastChild.style.height.toString();
+            alert(a.slice(0,2));
+            numList.removeChild(numList.lastChild);
+        }
+        function leftOut() {
+            var numList = document.getElementById("num_list");
+            if(!numList.childNodes.length) return false;
+            var a = numList.firstChild.style.height.toString();
+            alert(a.slice(0,2));
+            numList.removeChild(numList.firstChild);
+        }
+        function deleteNum(nodeData) {
+            nodeData.onclick = nodeData.parentNode.removeChild(nodeData)
+        }
+      function sort1() {
+            var numHeight = document.getElementById("num_list").childNodes;
+            //function swap(items,firstIndex,secondIndex) {
+              //  var temp = items[firstIndex];
+                //items[firstIndex] = items[secondIndex];
+                //items[secondIndex] = temp;
+          // function bubbleSort() {
+                var len = numHeight.length, i, j, stop,temp;
+                for (i = 0; i < len; i++) {
+                    for (j = 0, stop = len - i; j < stop; j++) {
+                        if (numHeight[j].style.height > numHeight[j + 1].style.height) {
+                            temp = numHeight[j].style.height;
+                            numHeight[j].style.height = numHeight[j + 1].style.height;
+                            numHeight[j + 1].style.height = temp;
+                        }
+
+                    }
+                }
+
+            }//冒泡法排序
+            for(var k = 0; k < numHeight.length; k++ ){
+                numHeight[k].style.height = numHeight[k].height + "px";
+
+        }
+
+
+    </script>
+</body>
+</html>
