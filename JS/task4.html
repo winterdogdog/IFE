@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE task1</title>
+    <style>
+
+
+        p button {
+            background-color:red;
+            padding:10px;
+            color:white;
+            border:none;
+            margin:5px;
+            box-shadow:2px 3px 2px #980000;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class = "div1">
+<input type = "text" id = "num1" >
+<button id = "left_in" onclick = "leftIn()">左侧进</button>
+<button id = "right_in" onclick = "rightIn()">右侧进</button>
+<button id = "left_out" onclick="leftOut()">左侧出</button>
+<button id = "right_out" onclick="rightOut()">右侧出</button>
+</div>
+<p id = num_list><p>
+<script type = "text/javascript">
+    function leftIn() {
+        var num1 = document.getElementById("num1");
+        var numList = document.getElementById("num_list");
+        var newLi = document.createElement("button");
+        if(isNaN(num1.value)||num1.value == ""){
+            alert("请输入数字");
+        }
+        else {
+            newLi.innerHTML = num1.value;
+            numList.insertBefore(newLi, numList.childNodes[0]);
+            newLi.onclick = function () {
+                deleteNum(newLi);
+            }
+        }
+
+    }
+    function rightIn() {
+        var num1 = document.getElementById("num1");
+        var numList = document.getElementById("num_list");
+        var newLi = document.createElement("button");
+        if(isNaN(num1.value)||num1.value == ""){
+            alert("请输入数字");
+        }
+        else {
+            newLi.innerHTML = num1.value;
+            numList.appendChild(newLi);
+            newLi.onclick = function () {
+                deleteNum(newLi);
+            }
+        }
+    }
+    function rightOut() {
+        var numList = document.getElementById("num_list");
+        if(!numList.childNodes.length) return false;
+        alert(numList.lastChild.innerHTML);
+        numList.removeChild(numList.lastChild);
+    }
+    function leftOut() {
+        var numList = document.getElementById("num_list");
+        if(!numList.childNodes.length) return false;
+        alert(numList.firstChild.innerHTML);
+        numList.removeChild(numList.firstChild);
+    }
+    function deleteNum(nodeData) {
+        nodeData.onclick = nodeData.parentNode.removeChild(nodeData)
+    }
+</script>
+</body>
+</html>
