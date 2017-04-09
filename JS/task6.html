@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IFE task1</title>
+    <style>
+        p button {
+            background-color:red;
+            padding:10px;
+            color:white;
+            border:none;
+            margin:5px;
+            box-shadow:2px 3px 2px #980000;
+        }
+    </style>
+</head>
+<body>
+<div class = "div1">
+    <textarea type = "text" id = "num1" cols = "20" rows = "10"></textarea>
+    <button id = "left_in" onclick = "leftIn()">左侧进</button>
+    <button id = "right_in" onclick = "rightIn()">右侧进</button>
+    <button id = "left_out" onclick="leftOut()">左侧出</button>
+    <button id = "right_out" onclick="rightOut()">右侧出</button><br>
+    <input type="text" id = "query1" value = "请输入您要查询的内容">
+    <button id = "query_for" onclick="queryFor()">查询</button>
+</div>
+<p id = num_list><p>
+    <script type = "text/javascript">
+        function leftIn() {
+            var num1 = document.getElementById("num1");
+            var numList = document.getElementById("num_list");
+            var newLi = document.createElement("button");
+            if(num1.value == ""){
+                alert("请输入内容");
+            }
+            else {
+                var numArray = num1.value.split(/[\r\n,，、\s;]/g);//用正则表达式匹配所有的符号
+                for(var i = 0; i < numArray.length; i++) {
+                    var newNUmber = document.createTextNode(numArray[i]);
+                    newLi.appendChild(newNUmber);
+                    numList.insertBefore(newLi, numList.childNodes[0]);
+//                    console.log(numList.childNodes[0].innerHTML);
+                }
+                newLi.onclick = function () {
+                    deleteNum(newLi);
+                }
+            }
+
+        }
+        function rightIn() {
+            var num1 = document.getElementById("num1");
+            var numList = document.getElementById("num_list");
+            var newLi = document.createElement("button");
+            if(num1.value == ""){
+                alert("请输入内容");
+            }
+            else {
+                var numArray = num1.value.split(/[\r\n,，、\s;]/g);
+                for(var j = 0; j < numArray.length; j++) {
+                    var newNUmber = document.createTextNode(numArray[j]);
+                    newLi.appendChild(newNUmber);
+                    numList.appendChild(newLi);
+                }
+                newLi.onclick = function () {
+                    deleteNum(newLi);
+                }
+            }
+        }
+        function rightOut() {
+            var numList = document.getElementById("num_list");
+            if(!numList.childNodes.length) return false;
+            alert(numList.lastChild.innerHTML);
+            numList.removeChild(numList.lastChild);
+        }
+        function leftOut() {
+            var numList = document.getElementById("num_list");
+            if(!numList.childNodes.length) return false;
+            alert(numList.firstChild.innerHTML);
+            numList.removeChild(numList.firstChild);
+        }
+        function deleteNum(nodeData) {
+            nodeData.onclick = nodeData.parentNode.removeChild(nodeData)
+        }
+        function queryFor() {
+            var queryNumber = document.getElementById("query1");
+            var reg1 = new RegExp(queryNumber.value, "g");
+//            console.log(reg1);
+            var numList = document.getElementById("num_list");
+            for(i = 0; i < numList.childNodes.length; i++){
+                if(numList.childNodes[i].innerHTML.match(reg1) !== null){
+                    numList.childNodes[i].style.backgroundColor = "blue";
+//                    console.log(i);
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>
